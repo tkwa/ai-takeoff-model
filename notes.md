@@ -57,3 +57,9 @@ The output cells should be
 - Distribution of time to 99% automation
 - Line plot with median time to 99% automation in each of 10 buckets conditional on a variable, with each variable on one ax
 - An interactive version of the plot where one can adjust sliders
+
+### Biggest uncertainties
+
+- If jobs are automated rather than uniform uplift, is there a penalty from humans retraining?
+- Substitutability from new tasks
+- Is effective compute $C \cdot S$
