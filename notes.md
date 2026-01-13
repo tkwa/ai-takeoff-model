@@ -33,7 +33,7 @@ where
 ### Differences from AI Futures model
 
 - No full automation
-- No separate coding and research test
+- No separate coding and research taste skills
 
 ### Parameter values
 
