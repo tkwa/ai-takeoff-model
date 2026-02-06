@@ -47,7 +47,7 @@ where
     - $\beta$ is the difficulty exponent for software improvement
     - $\zeta$ is direct returns to compute. For software intelligence explosion, this is not relevant
 - $E_{hac}$ is the effective compute level of an AI that can automate half of AI R&D tasks.
-- v is the automation velocity: S must increase by factor of $e^(1/v)$ to get from 50% to 73% automation
+- v is the automation velocity: S must increase by factor of $e^{1/v}$ to get from 50% to 73% automation
 
 None of the pieces beyond this model are novel, but I haven't seen them written up in this form.
 
@@ -66,7 +66,7 @@ The largest other difference is there are no separate coding and research taste 
   - how to measure algorithmic progress
   - how effective compute relates to % automation of real tasks
 - At current rates of compute growth and algorithmic progress, there will be 99% automation of AI R&D, 1e3 to 1e8 software efficiency gain, and 300x-3000x research output by 2035, even without full automation or automated research taste. This is clearly transformative AI
-  - I don't put too much weight in the exact predicted timelines because I haven't thought much about the exact parameter values
+  - I don't put too much weight on the exact predicted timelines because I haven't thought much about the exact parameter values
 - Even as automation dramatically increases the amount of effective labor, the compute:labor ratio goes UP, because compute is increasing so fast.
 
 ## Graphs
@@ -112,7 +112,7 @@ v [velocity of automation as capabilities improve] can be obtained by
 
 ### Why are labor and compute Cobb-Douglas?
 
-In the AIFM, the median estimate for substitutabilty between labor and compute is -0.15, and the plausible range includes zero (which would be Cobb-Douglas). I asked Eli why they didn't just say it was Cobb-Douglas, and he said something like Cobb-Douglas giving infinite progress if compute goes to infinity while labor remains constant, which is implausible. I have two responses to this:
+In the AIFM, the median estimate for substitutability between labor and compute is -0.15, and the plausible range includes zero (which would be Cobb-Douglas). I asked Eli why they didn't just say it was Cobb-Douglas, and he said something like Cobb-Douglas giving infinite progress if compute goes to infinity while labor remains constant, which is implausible. I have two responses to this:
 - It doesn't seem so implausible to me-- it would take days to weeks to get to ASI given infinite compute, meaning a 100x-1000x speedup, but once there, infinite compute might allow developers to develop algorithms in months that would take humans billions of years with current compute levels
 - Labor/compute ratio only changes by ~30x during the period in question, so it doesn't affect results much anyway.
 
