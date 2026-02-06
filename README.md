@@ -72,11 +72,11 @@ The largest other difference is there are no separate coding and research taste 
 
 ## Graphs
 
-![40 sample trajectories](plots/trajectories.png)
-*40 sampled trajectories of the model. Top left: software level S grows subexponentially (but very fast) as automation accelerates research. Top right: the parallel compute:labor ratio $C / (L/(1-f))$ (raw resource ratio before diminishing returns) decreases if automation is fast, but is ~constant if automation is on track for 99% by ~2034. Bottom left: research production R(t) increases by orders of magnitude. Bottom right: the serial compute:labor ratio $C^\zeta / (L/(1-f))^\alpha$ (with diminishing returns exponents) trends upward.*
-
 ![Automation trajectories](plots/automation.png)
 *Automation fraction f across the same 40 trajectories (logit scale). Most trajectories reach 99% automation of AI R&D by the early-to-mid 2030s.*
+
+![40 sample trajectories](plots/trajectories.png)
+*40 sampled trajectories of the model. Top left: software level S grows subexponentially (but very fast) as automation accelerates research. Top right: the parallel compute:labor ratio $C / (L/(1-f))$ (raw resource ratio before diminishing returns) decreases if automation is fast, but is ~constant if automation is on track for 99% by ~2034. Bottom left: research production R(t) increases by orders of magnitude. Bottom right: the serial compute:labor ratio $C^\zeta / (L/(1-f))^\alpha$ (with diminishing returns exponents) trends upward.*
 
 ![Sensitivity analysis](plots/sensitivity.png)
 *Sensitivity analysis: median year of 99% automation as a function of each parameter, with the other parameters sampled from their prior distributions. Higher beta (diminishing returns to software improvement) and higher 1/v (slower automation) delay 99% automation the most, while the other parameters have modest effects.*
