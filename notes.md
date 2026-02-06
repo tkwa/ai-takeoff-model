@@ -41,19 +41,21 @@ where
 - 1/v is between 1.5 and 4.2
     - NB david thinks 2.1 to 4.2
 - f was between 0.25-0.5 in jan 2026
-- alpha/(alpha + zeta) is between 0.15 and 0.4
+- alpha/(alpha + zeta) is between 0.12 and 0.35
+    - This range is based on Yafah's (Epoch) recommendation to calibrate from lab spending ratios of labor vs capital. I couldn't find a specific published Epoch dataset for this ratio.
 - alpha + zeta is between 0.8 and 1
 - beta is 0.3 to 1
 - all variables triangularly and independently distributed
 - L doubling every year until 2029 after which it increases 10%/year
-- C tripling every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+- C growing 2.6x every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+    - The 2.6x figure is from Yafah at Epoch. Epoch's published retrospective data shows NVIDIA compute stock growing ~2.3x/year and all AI chip production ~3.3x/year; we couldn't find a published forward-looking time series.
 
 ### Implementation details for Claude etc.
 
 If you realize it is underconstrained, tell me rather than making up other distributions
 
 The output cells should be
-- a plot with 40 trajectories of S(t) in top left panel, same trajectories of f in top right panel with a log scale (50%, 90%, 98% etc), same trajectories of research production R(t) in bottom left panel, trajectories of serial labor:serial compute ratio ($(\frac L {1-f})^\alpha / C^\zeta$) with 2026 value = 1 on bottom right panel
+- a plot with 40 trajectories of S(t) in top left panel, same trajectories of f in top right panel with a log scale (50%, 90%, 98% etc), same trajectories of research production R(t) in bottom left panel, trajectories of compute:labor ratio ($C^\zeta / (\frac L {1-f})^\alpha$) with 2026 value = 1 on bottom right panel
 - Distribution of time to 99% automation
 - Line plot with median time to 99% automation in each of 10 buckets conditional on a variable, with each variable on one ax
 - An interactive version of the plot where one can adjust sliders

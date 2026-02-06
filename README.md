@@ -83,12 +83,12 @@ The parameters are derived from these assumptions:
 - 1/v is between 1.5 and 4.2
     - NB David Rein thinks 2.1 to 4.2
 - f was between 0.25-0.5 in jan 2026
-- alpha/(alpha + zeta) is between 0.15 and 0.4
+- alpha/(alpha + zeta) is between 0.12 and 0.35
 - alpha + zeta is between 0.8 and 1
 - beta is 0.3 to 1
 - all variables triangularly and independently distributed
 - L doubling every year until 2029 after which it increases 10%/year
-- C tripling every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+- C growing 2.6x every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
 
 For more information see the notebook: https://github.com/tkwa/ai-takeoff-model/blob/main/takeoff_simulation.ipynb
 
