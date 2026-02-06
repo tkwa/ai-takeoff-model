@@ -55,7 +55,8 @@ where
 If you realize it is underconstrained, tell me rather than making up other distributions
 
 The output cells should be
-- a plot with 40 trajectories of S(t) in top left panel, same trajectories of f in top right panel with a log scale (50%, 90%, 98% etc), same trajectories of research production R(t) in bottom left panel, trajectories of compute:labor ratio ($C^\zeta / (\frac L {1-f})^\alpha$) with 2026 value = 1 on bottom right panel
+- a 4-panel plot with 40 trajectories: S(t) top left, serial compute:labor ratio ($C^\zeta / L^\alpha$) top right, research production R(t) bottom left, effective compute:labor ratio ($C^\zeta / (\frac L {1-f})^\alpha$) bottom right (all normalized to 2026=1)
+- a separate automation trajectories plot showing f(t) with logit scale (50%, 90%, 98% etc)
 - Distribution of time to 99% automation
 - Line plot with median time to 99% automation in each of 10 buckets conditional on a variable, with each variable on one ax
 - An interactive version of the plot where one can adjust sliders

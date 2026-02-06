@@ -1,6 +1,6 @@
 # A simpler model for AI timelines and takeoff
 
-A much simpler model based on the AI Futures Timelines model results in similar timelines, while being more understandable and robust. In particular, at current rates of compute growth and algorithmic progress, there will be 99% automation of AI R&D, 1e3 to 1e8 algorithmic progress, and 300x-3000x research output by 2035, even without full automation or automated research taste.
+A much simpler model based on the AI Futures Timelines model results in similar timelines, while being more understandable and robust. In particular, at current rates of compute growth and algorithmic progress, there will be 99% automation of AI R&D, 1e3 to 1e7 algorithmic progress, and 300x-3000x research output by 2035, even without full automation or automated research taste.
 
 ## Why make this?
 
@@ -67,11 +67,16 @@ The largest other difference is there are no separate coding and research taste 
   - how effective compute relates to % automation of real tasks
 - At current rates of compute growth and algorithmic progress, there will be 99% automation of AI R&D, 1e3 to 1e8 software efficiency gain, and 300x-3000x research output by 2035, even without full automation or automated research taste. This is clearly transformative AI
   - I don't put too much weight on the exact predicted timelines because I haven't thought much about the exact parameter values
-- Even as automation dramatically increases the amount of effective labor, the compute:labor ratio goes UP, because compute is increasing so fast.
+- A basic sensitivity analysis shows that higher beta (diminishing returns) and lower v (automation velocity) make 99% automation happen later, and the other parameters don't affect things much.
+- Even as automation dramatically increases the amount of effective labor, the compute:labor ratio goes UP, because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
 
 ## Graphs
 
-TODO
+![40 sample trajectories](plots/trajectories.png)
+*40 sampled trajectories of the model. Top left: software level S grows superexponentially as automation accelerates research. Top right: the serial compute:labor ratio $C^\zeta / L^\alpha$ (ignoring the automation speedup) rises steadily because compute grows faster than labor. Bottom left: research production R(t) increases by orders of magnitude. Bottom right: even accounting for the automation-driven increase in effective labor, the compute:labor ratio $C^\zeta / (L/(1-f))^\alpha$ still trends upward.*
+
+![Automation trajectories](plots/automation.png)
+*Automation fraction f across the same 40 trajectories (logit scale). Most trajectories reach 99% automation of AI R&D by the early-to-mid 2030s. The logit scale shows that the transition from 50% to 99% automation is rapid once it begins.*
 
 ## More on modeling choices
 
@@ -114,7 +119,7 @@ v [velocity of automation as capabilities improve] can be obtained by
 
 In the AIFM, the median estimate for substitutability between labor and compute is -0.15, and the plausible range includes zero (which would be Cobb-Douglas). I asked Eli why they didn't just say it was Cobb-Douglas, and he said something like Cobb-Douglas giving infinite progress if compute goes to infinity while labor remains constant, which is implausible. I have two responses to this:
 - It doesn't seem so implausible to me-- it would take days to weeks to get to ASI given infinite compute, meaning a 100x-1000x speedup, but once there, infinite compute might allow developers to develop algorithms in months that would take humans billions of years with current compute levels
-- Labor/compute ratio only changes by ~30x during the period in question, so it doesn't affect results much anyway.
+- Labor/compute ratio only changes by 10-100x during the period in question, so it doesn't affect results much anyway.
 
 ### Why is there no substitutability between tasks?
 
