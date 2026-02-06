@@ -68,7 +68,7 @@ The largest other difference is there are no separate coding and research taste 
 - At current rates of compute growth and algorithmic progress, there will be 99% automation of AI R&D, 1e3 to 1e8 software efficiency gain, and 300x-3000x research output by 2035, even without full automation or automated research taste. This is clearly transformative AI
   - I don't put too much weight on the exact predicted timelines because I haven't thought much about the exact parameter values
 - A basic sensitivity analysis shows that higher beta (diminishing returns) and lower v (automation velocity) make 99% automation happen later, and the other parameters don't affect things much.
-- Even as automation dramatically increases the amount of effective labor, the compute:labor ratio goes UP, because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
+- Even as automation dramatically increases the amount of effective labor, the *serial* compute:labor ratio goes UP, because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
 
 ## Graphs
 
