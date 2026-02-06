@@ -15,6 +15,8 @@ A much simpler model based on the AI Futures Timelines model results in similar 
 
 This model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about timelines (time to superhuman AI researcher), not takeoff (time from SAR to ASI and beyond, when increasingly superhuman research taste becomes the primary driver of progress in the AIFM).
 
+This was constructed and written up fairly quickly (about 10 hours of work), so the parameters and some of the modeling assumptions are not super well-considered opinions.
+
 ## The model
 
 We assume that AI development has the following dynamics:
@@ -72,6 +74,23 @@ The largest other difference is there are no separate coding and research taste 
 TODO
 
 ## More on modeling choices
+
+### Parameter values
+
+The parameters are derived from these assumptions:
+
+- The rate of change of S in jan 2026 is 5x/year
+- 1/v is between 1.5 and 4.2
+    - NB David Rein thinks 2.1 to 4.2
+- f was between 0.25-0.5 in jan 2026
+- alpha/(alpha + zeta) is between 0.15 and 0.4
+- alpha + zeta is between 0.8 and 1
+- beta is 0.3 to 1
+- all variables triangularly and independently distributed
+- L doubling every year until 2029 after which it increases 10%/year
+- C tripling every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+
+For more information see the notebook: https://github.com/tkwa/ai-takeoff-model/blob/main/takeoff_simulation.ipynb
 
 ### How could we better estimate the parameters?
 
