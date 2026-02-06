@@ -73,7 +73,7 @@ The largest other difference is there are no separate coding and research taste 
 ## Graphs
 
 ![40 sample trajectories](plots/trajectories.png)
-*40 sampled trajectories of the model. Top left: software level S grows superexponentially as automation accelerates research. Top right: the serial compute:labor ratio $C^\zeta / L^\alpha$ (ignoring the automation speedup) rises steadily because compute grows faster than labor. Bottom left: research production R(t) increases by orders of magnitude. Bottom right: even accounting for the automation-driven increase in effective labor, the compute:labor ratio $C^\zeta / (L/(1-f))^\alpha$ still trends upward.*
+*40 sampled trajectories of the model. Top left: software level S grows superexponentially as automation accelerates research. Top right: the parallel compute:labor ratio $C / (L/(1-f))$ (raw resource ratio before diminishing returns) rises steadily because compute grows faster than effective labor. Bottom left: research production R(t) increases by orders of magnitude. Bottom right: the serial compute:labor ratio $C^\zeta / (L/(1-f))^\alpha$ (with diminishing returns exponents) also trends upward.*
 
 ![Automation trajectories](plots/automation.png)
 *Automation fraction f across the same 40 trajectories (logit scale). Most trajectories reach 99% automation of AI R&D by the early-to-mid 2030s. The logit scale shows that the transition from 50% to 99% automation is rapid once it begins.*
