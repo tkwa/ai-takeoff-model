@@ -1,11 +1,11 @@
-# A parsimonious AI timelines model predicts 99% AI R&D automation in ~2032
+# A simpler AI timelines model predicts 99% AI R&D automation in ~2032
 
 In this post, I describe a simple model for predicting when AI will automate AI development. It is loosely based on the [AI Futures model](https://www.timelinesmodel.com/), and makes similar predictions while being more understandable and robust. In particular, at current rates of compute growth and algorithmic progress, this model predicts >99% automation of AI R&D, 1e3 to 1e7 algorithmic progress, and 300x-3000x research output by 2035, even without full automation or automated research taste.
 
 ## Why make this?
 
 - The AI Futures Model (AIFM) has 33 parameters; this has 8
-    - The philosophy behind the AIFM is to model AI takeoff in great detail. More complex models can be more accurate, but they can also be prone to overfitting, more sensitive to modeling assumptions, and harder to understand.
+    - I previously [summarized the AIFM on LessWrong](https://www.lesswrong.com/posts/YABG5JmztGGPwNFq2/ai-futures-timelines-and-takeoff-model-dec-2025-update?commentId=xA3x6HqndYpNHdmcN) and found it to be very complex. Its philosophy is to model AI takeoff in great detail, which I find admirable and somewhat necessary given the inherent complexity in the world. More complex models can be more accurate, but they can also be more sensitive to modeling assumptions, prone to overfitting, and harder to understand.
 - AIFM is extremely sensitive to time horizon in a way I wouldn't endorse.
     - In particular, the "doubling difficulty growth factor", which measures whether time horizon increases superexponentially, could change the date of automated coder from 2028 to 2049! I suspect that time horizon is too poorly defined to nail down this parameter.
 
@@ -14,18 +14,18 @@ In this post, I describe a simple model for predicting when AI will automate AI 
 First, this model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about timelines (time to superhuman AI researcher), not takeoff (time from SAR to ASI and beyond, when increasingly superhuman research taste becomes the primary driver of progress in the AIFM). If AIs get superhuman research taste that makes AI development orders of magnitude more efficient, takeoff could be faster than this model predicts.
 
 Second, we deliberately make two conservative assumptions:
-- No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it.
-- No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$)
+- No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic that saturates *above* 100% (by default 105%), meaning that there is a capability level where they automate all coding.
+- No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks)
 
-This was constructed and written up fairly quickly (about 10 hours of work), so my opinions on parameters and some of the modeling assumptions could change in the future.
+This was constructed and written up fairly quickly (about 14 hours of work), so my opinions on parameters and some of the modeling assumptions could change in the future.
 
 ## The model
 
 We assume that AI development has the following dynamics:
 
-- Research progress is Cobb-Douglas between labor and compute
-- Software efficiency S follows a Jones model
-- The fraction of automatable tasks $f$ increases as a sigmoid in log S
+- Research progress is [Cobb-Douglas](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function) between labor and compute
+- Software efficiency S follows a [Jones model](https://en.wikipedia.org/wiki/Jones_model)
+- The key metric we want to predict, **fraction of automatable tasks $f$**, increases as a sigmoid in log S
 - Zero substitution between tasks
 - Labor
     - Humans work on ONLY non-automated tasks
@@ -40,7 +40,7 @@ $$f(t) = \sigma(v(\log C(t)S(t) - \log E_{hac}))$$
 
 where
 
-- $S(t)$ is level of software (training+inference efficiency)
+- $S(t)$ is level of software efficiency (training+inference)
     - so $C(t)S(t)$ is the effective compute of the best AI
 - L(t) is human labor, specified as an input time series
 - C(t) is compute, also an input time series
@@ -53,13 +53,36 @@ where
 
 None of the components of this model are novel to the AI forecasting literature, but I haven't seen them written up in this form.
 
+### Diagram
+
+```mermaid
+graph LR
+    C(["C(t)<br/>Compute"]):::exogenous
+    L(["L(t)<br/>Labor"]):::exogenous
+    R["R(t)<br/>Research output"]
+    S["S(t)<br/>Software efficiency"]
+    EC["C(t)·S(t)<br/>AI capability"]
+    f["f(t)<br/>Automation fraction"]
+
+    C -->|ζ| R
+    L -->|α| R
+    f -->|"L/(1-f)"| R
+    R -->|"S^(1-β)"| S
+    S --> EC
+    C --> EC
+    EC -->|"sigmoid"| f
+
+    classDef exogenous fill:#e0e0e0,stroke:#888,stroke-dasharray:5
+```
+
 ## Graphs
 
 ![Automation trajectories](plots/automation.png)
 *Automation fraction f across the same 40 trajectories (logit scale). Most trajectories reach 99% automation of AI R&D by the early-to-mid 2030s.*
 
 ![40 sample trajectories](plots/trajectories.png)
-*40 sampled trajectories of the model. Top left: software level S grows subexponentially (but very fast) as automation accelerates research. Top right: the parallel compute:labor ratio $C / (L/(1-f))$ (raw resource ratio before diminishing returns) decreases if automation is fast, but is ~constant if automation is on track for 99% by ~2034. Bottom left: research production R(t) increases by orders of magnitude. Bottom right: the serial compute:labor ratio $C^\zeta / (L/(1-f))^\alpha$ (with diminishing returns exponents) trends upward.*
+
+*40 sampled trajectories of the model. Top left: software level S grows subexponentially (but very fast) as automation accelerates research. Top right: the parallel compute:labor ratio $C / (L/(1-f))$ (raw resource ratio before diminishing returns) decreases if automation is fast, but is ~constant if automation is on track for 99% by ~2034. Bottom left: research production R(t) increases by orders of magnitude. Bottom right: the serial compute:labor ratio $C^\zeta / (L/(1-f))^\alpha$ (with diminishing returns exponents) trends upward. Trajectories are cut off at 99.9999% automation for numerical stability.*
 
 ![Sensitivity analysis](plots/sensitivity.png)
 *Sensitivity analysis: median year of 99% automation as a function of each parameter, with the other parameters sampled from their prior distributions. Higher beta (diminishing returns to software improvement) and higher 1/v (slower automation) delay 99% automation the most, while the other parameters have modest effects.*
@@ -68,33 +91,47 @@ None of the components of this model are novel to the AI forecasting literature,
 
 - The AI Futures model is complex, but its conclusions are fairly robust to simplifications.
 - The two key uncertainties behind timelines are
-  - how to measure algorithmic progress
+  - how to measure algorithmic progress (our estimates are still highly uncertain)
   - how effective compute relates to % automation of real tasks
-- At current rates of compute growth and algorithmic progress, there will be 99% automation of AI R&D, 1e3 to 1e8 software efficiency gain, and 300x-3000x research output by 2035, even without full automation or automated research taste. This is clearly transformative AI
+- At current rates of compute growth and algorithmic progress, there will be >99% automation of AI R&D, 1e3 to 1e8 software efficiency gain, and 300x-3000x research output by 2035, even without full automation or automated research taste. This is clearly transformative AI
   - The median date of 99% automation is mid-2032. However, I don't put too much weight on the exact predicted timelines because I haven't thought much about the exact parameter values.
 - A basic sensitivity analysis shows that higher beta (diminishing returns) and lower v (automation velocity) make 99% automation happen later, and the other parameters don't affect things much.
 - Even as automation dramatically increases the amount of effective labor, the *serial* compute:labor ratio goes UP, because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
-
-
+- This is not entirely supported by the writeup here, but from playing around with this and other variations to the AI Futures model I think any reasonable timelines model will predict superhuman AI researchers before 2036 unless AI progress hits a wall or is deliberately slowed. 
+    - By progress hitting a wall, I mean something like compute and human labor growth slowing down in ~2030, no architectural breakthroughs, and AI labs not finding any new thing to usefully spend resources on to improve performance. We have scaled pretraining, RLHF, RL for agency, and inference, and even one or two more dimensions could keep progress going.
+    - In the sensitivity analysis, automation slowness doesn't push into 2036 unless it's greater than 3.6 (37x efficiency gain required to increase automation from 50% to 73%). As for diminishing returns (beta), we get produces 2034 timelines even if you assume it's 0.9. So you would need *both* high automation slowness and high beta to get timelines after 2036.
 
 ## Parameter values
 
-The parameters are derived from these assumptions:
+The parameters are derived from these assumptions, which are basically educated guesses from other models and asking around:
 
 - The rate of change of S in jan 2026 is 5x/year
 - 1/v is between 1.5 and 4.2
     - NB David Rein thinks 2.1 to 4.2
-- f was between 0.25-0.5 in jan 2026
+- f was between 0.25-0.5 in jan 2026, implying between 1.33x and 2x uplift
 - alpha/(alpha + zeta) is between 0.12 and 0.35
 - alpha + zeta is between 0.8 and 1
 - beta is 0.3 to 1
-- all variables triangularly and independently distributed
 - L doubling every year until 2029 after which it increases 10%/year
 - C growing 2.6x every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+
+All quantities are triangularly and independently distributed (due to the transforms performed to get alpha, zeta, and v, v will not be triangular and alpha and zeta will not be triangular or independent)
 
 For more information see the notebook: https://github.com/tkwa/ai-takeoff-model/blob/main/takeoff_simulation.ipynb
 
 ## More on modeling choices
+
+### List of differences from the AIFM
+
+It may be useful to cross-reference this with my [AIFM summary](https://www.lesswrong.com/posts/YABG5JmztGGPwNFq2/ai-futures-timelines-and-takeoff-model-dec-2025-update?commentId=xA3x6HqndYpNHdmcN)
+
+- No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks). AIFM assumes a small degree of sbustitutability ($\rho_c = -2).
+- Automated tasks don't bottleneck: Once a task can be automated, we assume it's much faster than humans and is never the bottleneck-- either because AIs will run much faster than humans in series or somewhat faster in parallel. AIFM assumes automated tasks initially run somewhat faster than human coding and speeds up over time.
+- No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic that saturates *above* 100% (by default 105%, a number which seems somewhat arbitrary), meaning that there is a capability level where they automate all coding.
+- Labor and compute are Cobb-Douglas. In the AIFM, they are CES and slight complements, so that infinite compute doesn't produce infinite progress. See below for more thoughts.
+- No use of time horizon: Software efficiency is a direct input to our model rather than being estimated using time horizon. See "Why make this" for why.
+- No superexponential capability growth: To be conservative, we model automation fraction as strictly logistic in log compute. Together with the lack of research taste model, this makes superexponential growth impossible without superexponential growth in inputs (so we don't attempt to model whether there will be a taste-only singularity). AIFM assumes that time horizon, and therefore software efficiency, can increase superexponentially until reaching the Automated Coder level.
+- No research taste: We don't model research taste separately; I think of early research taste as continuous with the planning involved in coding, and ignore late research taste. AIFM has a rich model of research taste that needs another 6 or so parameters and informs the second phase of takeoff, from Automated Coder to ASI and then to the ultimate physical limits of intelligence.
 
 ### How could we better estimate the parameters?
 
