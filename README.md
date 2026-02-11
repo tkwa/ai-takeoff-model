@@ -20,7 +20,7 @@ Second, we deliberately make three conservative assumptions:
 - No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic curve that saturates *above* 100% (by default 105%), meaning that there is a capability level where they automate all coding.
 - No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks)
 
-This was constructed and written up fairly quickly (about 14 hours of work), so my opinions on parameters and some of the modeling assumptions could change in the future.
+This was constructed and written up fairly quickly (about 15 hours of work), so my opinions on parameters and some of the modeling assumptions could change in the future.
 
 ## The model
 
@@ -92,7 +92,7 @@ The parameters are derived from these assumptions, which are basically educated 
 - L doubling every year until 2029 after which it increases 10%/year
 - C growing 2.6x every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
 
-All parameters and independently distributed according to a triangular distribution. Due to the transforms performed to get alpha, zeta, and v, v will not be triangular and alpha and zeta will not be triangular or independent.
+All parameters are independently distributed according to a triangular distribution. Due to the transforms performed to get alpha, zeta, and v, v will not be triangular and alpha and zeta will not be triangular or independent.
 
 For more information see the notebook: https://github.com/tkwa/ai-takeoff-model/blob/main/takeoff_simulation.ipynb
 
@@ -147,7 +147,7 @@ It may be useful to cross-reference this with my [AIFM summary](https://www.less
 
 ### How could we better estimate the parameters?
 
-We can get f_2026 [uplift fraction in 2026] from
+We can get $f(2026)$ [uplift fraction in 2026] from
 * transcripts of realistic coding agent usage + success judge + difficulty judge calibrated on tasks of known lengths
 * uplift RCTs
 * asking lab employees about their current uplift (since parallel uplift and 1/(1-f) are equivalent in the simple model)
