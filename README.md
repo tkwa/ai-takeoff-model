@@ -32,8 +32,8 @@ We assume that AI development has the following dynamics:
 - Zero substitution between tasks
 - Labor
     - Humans work on ONLY non-automated tasks
-    - Human labor on each task is L/(1-f)
-    - AI labor on each task is CS/f, but this doesn't matter because we assume human labor is the bottleneck (since humans work slower than AIs)
+    - Human labor on each task is $L/(1-f)$
+    - AI labor on each task is $CS/f$, but this doesn't matter because we assume human labor is the bottleneck (since humans work slower than AIs)
 
 This implies the following model:
 
