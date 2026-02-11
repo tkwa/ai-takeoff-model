@@ -2,7 +2,7 @@
 
 In this post, I describe a simple model for forecasting when AI will automate AI development. It is based on the [AI Futures model](https://www.timelinesmodel.com/), but more understandable and robust, and has deliberately conservative assumptions.
 
-At current rates of compute growth and algorithmic progress, this model's median prediction is >99% automation of AI R&D in late 2032. In most simulations there is 1e3 to 1e7 algorithmic progress and 300x-3000x research output by 2035. I therefore think that existing trends in compute growth and automation will still produce extremely powerful AI on "medium" timelines, even if the full coding automation and superhuman research taste that drive the AIFM's "fast" timelines (superintelligence by ~mid-2031) don't happen.
+At current rates of compute growth and algorithmic progress, this model's median prediction is >99% automation of AI R&D in late 2032. Most simulations result in a 1000x to 10,000,000x increase in AI efficiency and 300x-3000x research output by 2035. I therefore think that existing trends in compute growth and automation will still produce extremely powerful AI on "medium" timelines, even if the full coding automation and superhuman research taste that drive the AIFM's "fast" timelines (superintelligence by ~mid-2031) don't happen.
 
 ## Why make this?
 
@@ -13,7 +13,7 @@ At current rates of compute growth and algorithmic progress, this model's median
 
 ## Scope and limitations
 
-First, this model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about timelines (time to superhuman AI researcher), not takeoff (time from SAR to ASI and beyond, when increasingly superhuman research taste becomes the primary driver of progress in the AIFM). If AIs get superhuman research taste that makes AI development orders of magnitude more efficient, takeoff could be faster than this model predicts.
+First, this model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about *timelines* (time to Automated Coder or Superhuman AI Researcher), not *takeoff* (the subsequent time from SAR to ASI and beyond). The AIFM can model takeoff because it has a second phase where the SAR's superhuman research taste further AI R&D acceleration on top of coding automation. If superhuman research taste makes AI development orders of magnitude more efficient, takeoff could be faster than this model predicts.
 
 Second, we deliberately make three conservative assumptions:
 - No superexponential time horizon growth: we instead assume that compute efficiency increases 5x/year
@@ -23,6 +23,26 @@ Second, we deliberately make three conservative assumptions:
 This was constructed and written up fairly quickly (about 14 hours of work), so my opinions on parameters and some of the modeling assumptions could change in the future.
 
 ## The model
+
+```mermaid
+graph LR
+    C(["C(t)<br/>Compute"]):::exogenous
+    L(["L(t)<br/>Labor"]):::exogenous
+    R["R(t)<br/>Research output"]
+    S["S(t)<br/>Software efficiency"]
+    EC["C(t)·S(t)<br/>AI capability"]
+    f["f(t)<br/>Automation fraction"]
+
+    C -->|ζ| R
+    L -->|α| R
+    f -->|"L/(1-f)"| R
+    R -->|"S^(1-β)"| S
+    S --> EC
+    C --> EC
+    EC -->|"sigmoid"| f
+
+    classDef exogenous fill:#e0e0e0,stroke:#888,stroke-dasharray:5
+```
 
 We assume that AI development has the following dynamics:
 
@@ -45,38 +65,18 @@ where
 
 - $S(t)$ is level of software efficiency (training+inference)
     - so $C(t)S(t)$ is the effective compute of the best AI
-- L(t) is human labor, specified as an input time series
-- C(t) is compute, also an input time series
+- $f(t)$ is the fraction of automated tasks at time $t$
+- $R(t)$ is research production at time $t$
+- $L(t)$ is human labor, specified as an input time series
+- $C(t)$ is compute, also an input time series
 - $\alpha, \beta, \zeta$ are constant
     - $\alpha$ is diminishing returns to more labor.
     - $\beta$ is the difficulty exponent for software improvement
     - $\zeta$ is direct returns to compute. For software intelligence explosion, this is not relevant
 - $E_{hac}$ is the effective compute level of an AI that can automate half of AI R&D tasks.
-- v is the automation velocity: S must increase by factor of $e^{1/v}$ to get from 50% to 73% automation
+- $v$ is the automation velocity: S must increase by factor of $e^{1/v}$ to get from 50% to 73% automation
 
 None of the components of this model are novel to the AI forecasting literature, but I haven't seen them written up in this form.
-
-### Diagram
-
-```mermaid
-graph LR
-    C(["C(t)<br/>Compute"]):::exogenous
-    L(["L(t)<br/>Labor"]):::exogenous
-    R["R(t)<br/>Research output"]
-    S["S(t)<br/>Software efficiency"]
-    EC["C(t)·S(t)<br/>AI capability"]
-    f["f(t)<br/>Automation fraction"]
-
-    C -->|ζ| R
-    L -->|α| R
-    f -->|"L/(1-f)"| R
-    R -->|"S^(1-β)"| S
-    S --> EC
-    C --> EC
-    EC -->|"sigmoid"| f
-
-    classDef exogenous fill:#e0e0e0,stroke:#888,stroke-dasharray:5
-```
 
 ## Graphs
 
