@@ -89,8 +89,8 @@ The parameters are derived from these assumptions, which are basically educated 
 - $\alpha/(\alpha + \zeta)$ is between 0.12 and 0.35
 - $\alpha + \zeta$ is between 0.8 and 1
 - $\beta$ is 0.3 to 1
-- L doubling every year until 2029 after which it increases 10%/year
-- C growing 2.6x every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+- L doubles every year until 2029, after which it increases 10%/year
+- C grows 2.6x every year until 2029, after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058. (This is consistent with Epoch estimates in the near term, and approximates the AIFM's time series after 2030)
 
 All parameters are independently distributed according to a triangular distribution. Due to the transforms performed to get alpha, zeta, and v, v will not be triangular and alpha and zeta will not be triangular or independent.
 
