@@ -1,20 +1,23 @@
 # A simpler AI timelines model predicts 99% AI R&D automation in ~2032
 
-In this post, I describe a simple model for predicting when AI will automate AI development. It is loosely based on the [AI Futures model](https://www.timelinesmodel.com/), and makes similar predictions while being more understandable and robust. In particular, at current rates of compute growth and algorithmic progress, this model predicts >99% automation of AI R&D, 1e3 to 1e7 algorithmic progress, and 300x-3000x research output by 2035, even without full automation or automated research taste.
+In this post, I describe a simple model for forecasting when AI will automate AI development. It is based on the [AI Futures model](https://www.timelinesmodel.com/), but more understandable and robust, and has deliberately conservative assumptions.
+
+At current rates of compute growth and algorithmic progress, this model's median prediction is >99% automation of AI R&D in late 2032. In most simulations there is 1e3 to 1e7 algorithmic progress and 300x-3000x research output by 2035. I therefore think that existing trends in compute growth and automation will still produce extremely powerful AI on "medium" timelines, even if the full coding automation and superhuman research taste that drive the AIFM's "fast" timelines (superintelligence by ~mid-2031) don't happen.
 
 ## Why make this?
 
-- The AI Futures Model (AIFM) has 33 parameters; this has 8
+- The AI Futures Model (AIFM) has 33 parameters; this has 8.
     - I previously [summarized the AIFM on LessWrong](https://www.lesswrong.com/posts/YABG5JmztGGPwNFq2/ai-futures-timelines-and-takeoff-model-dec-2025-update?commentId=xA3x6HqndYpNHdmcN) and found it to be very complex. Its philosophy is to model AI takeoff in great detail, which I find admirable and somewhat necessary given the inherent complexity in the world. More complex models can be more accurate, but they can also be more sensitive to modeling assumptions, prone to overfitting, and harder to understand.
 - AIFM is extremely sensitive to time horizon in a way I wouldn't endorse.
-    - In particular, the "doubling difficulty growth factor", which measures whether time horizon increases superexponentially, could change the date of automated coder from 2028 to 2049! I suspect that time horizon is too poorly defined to nail down this parameter.
+    - In particular, the "doubling difficulty growth factor", which measures whether time horizon increases superexponentially, could change the date of automated coder from 2028 to 2049! I suspect that time horizon is too poorly defined to nail down this parameter, and rough estimates of more direct AI capability metrics like uplift can give much tighter confidence intervals.
 
 ## Scope and limitations
 
 First, this model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about timelines (time to superhuman AI researcher), not takeoff (time from SAR to ASI and beyond, when increasingly superhuman research taste becomes the primary driver of progress in the AIFM). If AIs get superhuman research taste that makes AI development orders of magnitude more efficient, takeoff could be faster than this model predicts.
 
-Second, we deliberately make two conservative assumptions:
-- No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic that saturates *above* 100% (by default 105%), meaning that there is a capability level where they automate all coding.
+Second, we deliberately make three conservative assumptions:
+- No superexponential time horizon growth: we instead assume that compute efficiency increases 5x/year
+- No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic curve that saturates *above* 100% (by default 105%), meaning that there is a capability level where they automate all coding.
 - No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks)
 
 This was constructed and written up fairly quickly (about 14 hours of work), so my opinions on parameters and some of the modeling assumptions could change in the future.
@@ -97,9 +100,9 @@ graph LR
   - The median date of 99% automation is mid-2032. However, I don't put too much weight on the exact predicted timelines because I haven't thought much about the exact parameter values.
 - A basic sensitivity analysis shows that higher beta (diminishing returns) and lower v (automation velocity) make 99% automation happen later, and the other parameters don't affect things much.
 - Even as automation dramatically increases the amount of effective labor, the *serial* compute:labor ratio goes UP, because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
-- This is not entirely supported by the writeup here, but from playing around with this and other variations to the AI Futures model I think any reasonable timelines model will predict superhuman AI researchers before 2036 unless AI progress hits a wall or is deliberately slowed. 
+- This claim is not entirely supported by the writeup here, but from playing around with this and other variations to the AI Futures model I think any reasonable timelines model will predict superhuman AI researchers before 2036 unless AI progress hits a wall or is deliberately slowed. 
     - By progress hitting a wall, I mean something like compute and human labor growth slowing down in ~2030, no architectural breakthroughs, and AI labs not finding any new thing to usefully spend resources on to improve performance. We have scaled pretraining, RLHF, RL for agency, and inference, and even one or two more dimensions could keep progress going.
-    - In the sensitivity analysis, automation slowness doesn't push into 2036 unless it's greater than 3.6 (37x efficiency gain required to increase automation from 50% to 73%). As for diminishing returns (beta), we get produces 2034 timelines even if you assume it's 0.9. So you would need *both* high automation slowness and high beta to get timelines after 2036.
+    - In the sensitivity analysis, automation slowness doesn't push into 2036 unless it's greater than 3.6 (37x efficiency gain required to increase automation from 50% to 73%). As for diminishing returns (beta), we get produces 2034 timelines even if you assume it's 0.9. So we would need *both* high automation slowness and high beta to get timelines after 2036.
 
 ## Parameter values
 
