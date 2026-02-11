@@ -2,7 +2,7 @@
 
 In this post, I describe a simple model for forecasting when AI will automate AI development. It is based on the [AI Futures model](https://www.timelinesmodel.com/), but more understandable and robust, and has deliberately conservative assumptions.
 
-At current rates of compute growth and algorithmic progress, this model's median prediction is >99% automation of AI R&D in late 2032. Most simulations result in a 1000x to 10,000,000x increase in AI efficiency and 300x-3000x research output by 2035. I therefore think that existing trends in compute growth and automation will still produce extremely powerful AI on "medium" timelines, even if the full coding automation and superhuman research taste that drive the AIFM's "fast" timelines (superintelligence by ~mid-2031) don't happen.
+At current rates of compute growth and algorithmic progress, this model's median prediction is >99% automation of AI R&D in late 2032. Most simulations result in a 1000x to 10,000,000x increase in AI efficiency and 300x-3000x research output by 2035. I therefore suspect that existing trends in compute growth and automation will still produce extremely powerful AI on "medium" timelines, even if the full coding automation and superhuman research taste that drive the AIFM's "fast" timelines (superintelligence by ~mid-2031) don't happen.
 
 ## Why make this?
 
@@ -63,7 +63,7 @@ $$f(t) = \sigma(v(\log C(t)S(t) - \log E_{hac}))$$
 
 where
 
-- $S(t)$ is level of software efficiency (training+inference)
+- $S(t)$ is the algorithmic efficiency multiplier (I assume that training and inference efficiency improve at the same rate)
     - so $C(t)S(t)$ is the effective compute of the best AI
 - $f(t)$ is the fraction of automated tasks at time $t$
 - $R(t)$ is research production at time $t$
@@ -74,14 +74,34 @@ where
     - $\beta$ is the difficulty exponent for software improvement
     - $\zeta$ is direct returns to compute. For software intelligence explosion, this is not relevant
 - $E_{hac}$ is the effective compute level of an AI that can automate half of AI R&D tasks.
-- $v$ is the automation velocity: S must increase by factor of $e^{1/v}$ to get from 50% to 73% automation
+- $v$ is the automation velocity: S must increase by factor of $e^{1/v}$ to get from 50% to 73% automation. This is essentially how easy it is to translate capability gains into more automation. 
 
 None of the components of this model are novel to the AI forecasting literature, but I haven't seen them written up in this form.
 
+### Parameter values
+
+The parameters are derived from these assumptions, which are basically educated guesses from other AI timelines models and asking around:
+
+- The rate of change of S in jan 2026 is 5x/year
+- 1/v is between 1.5 and 4.2
+    - NB David Rein thinks 2.1 to 4.2
+- f was between 0.25-0.5 in jan 2026, implying between 1.33x and 2x uplift
+- $\alpha/(\alpha + \zeta)$ is between 0.12 and 0.35
+- $\alpha + \zeta$ is between 0.8 and 1
+- $\beta$ is 0.3 to 1
+- L doubling every year until 2029 after which it increases 10%/year
+- C growing 2.6x every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+
+All parameters and independently distributed according to a triangular distribution. Due to the transforms performed to get alpha, zeta, and v, v will not be triangular and alpha and zeta will not be triangular or independent.
+
+For more information see the notebook: https://github.com/tkwa/ai-takeoff-model/blob/main/takeoff_simulation.ipynb
+
 ## Graphs
 
+All graphs display 40 trajectories with parameters sampled according to the section [Parameter Values](#Parameter-values).
+
 ![Automation trajectories](plots/automation.png)
-*Automation fraction f across the same 40 trajectories (logit scale). Most trajectories reach 99% automation of AI R&D by the early-to-mid 2030s.*
+*Automation fraction f across the 40 trajectories (logit scale). Most trajectories reach 99% automation of AI R&D by the early-to-mid 2030s.*
 
 ![40 sample trajectories](plots/trajectories.png)
 
@@ -99,28 +119,17 @@ None of the components of this model are novel to the AI forecasting literature,
 - At current rates of compute growth and algorithmic progress, there will be >99% automation of AI R&D, 1e3 to 1e8 software efficiency gain, and 300x-3000x research output by 2035, even without full automation or automated research taste. This is clearly transformative AI
   - The median date of 99% automation is mid-2032. However, I don't put too much weight on the exact predicted timelines because I haven't thought much about the exact parameter values.
 - A basic sensitivity analysis shows that higher beta (diminishing returns) and lower v (automation velocity) make 99% automation happen later, and the other parameters don't affect things much.
-- Even as automation dramatically increases the amount of effective labor, the *serial* compute:labor ratio goes UP, because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
-- This claim is not entirely supported by the writeup here, but from playing around with this and other variations to the AI Futures model I think any reasonable timelines model will predict superhuman AI researchers before 2036 unless AI progress hits a wall or is deliberately slowed. 
-    - By progress hitting a wall, I mean something like compute and human labor growth slowing down in ~2030, no architectural breakthroughs, and AI labs not finding any new thing to usefully spend resources on to improve performance. We have scaled pretraining, RLHF, RL for agency, and inference, and even one or two more dimensions could keep progress going.
-    - In the sensitivity analysis, automation slowness doesn't push into 2036 unless it's greater than 3.6 (37x efficiency gain required to increase automation from 50% to 73%). As for diminishing returns (beta), we get produces 2034 timelines even if you assume it's 0.9. So we would need *both* high automation slowness and high beta to get timelines after 2036.
+- The parallel compute:labor ratio, measuring the amount of compute per AI or human coder, decreases in the average trajectory and is ~flat in long-timelines trajectories. So in 2030 timelines, the pool of human and AI coders has much less compute than today, while in 2035 timelines, they have about the same amount.
+- The *serial* compute:labor ratio goes UP, meaning that compute growth has a larger impact on research output than labor growth. This is because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
 
-## Parameter values
 
-The parameters are derived from these assumptions, which are basically educated guesses from other models and asking around:
+## Discussion
 
-- The rate of change of S in jan 2026 is 5x/year
-- 1/v is between 1.5 and 4.2
-    - NB David Rein thinks 2.1 to 4.2
-- f was between 0.25-0.5 in jan 2026, implying between 1.33x and 2x uplift
-- alpha/(alpha + zeta) is between 0.12 and 0.35
-- alpha + zeta is between 0.8 and 1
-- beta is 0.3 to 1
-- L doubling every year until 2029 after which it increases 10%/year
-- C growing 2.6x every year until 2029 after which the growth rate linearly decreases from 2x to 1.25x/year between 2030 and 2058.
+From playing around with this and other variations to the AI Futures model I think any reasonable timelines model will predict superhuman AI researchers before 2036 unless AI progress hits a wall or is deliberately slowed. 
+- By progress hitting a wall, I mean something like compute and human labor growth slowing down in ~2030, no architectural breakthroughs, and AI labs not finding any new thing to usefully spend resources on to improve performance. We have scaled pretraining, RLHF, RL for agency, and inference, and even one or two more dimensions could keep progress going.
+- In the sensitivity analysis, automation slowness doesn't push into 2036 unless it's greater than 3.6 (37x efficiency gain required to increase automation from 50% to 73%). As for diminishing returns (beta), we get produces 2034 timelines even if you assume it's 0.9. So we would need *both* high automation slowness and high beta to get timelines after 2036.
 
-All quantities are triangularly and independently distributed (due to the transforms performed to get alpha, zeta, and v, v will not be triangular and alpha and zeta will not be triangular or independent)
-
-For more information see the notebook: https://github.com/tkwa/ai-takeoff-model/blob/main/takeoff_simulation.ipynb
+In addition to refining the parameter values [with empirical data](#how-could-we-better-estimate-the-parameters), I would ideally want to backtest this model on data before 2026. However, a backtest is likely not feasible because automation was minimal before 2025, and automation of AI R&D is the main effect being modeled here.
 
 ## More on modeling choices
 
@@ -139,8 +148,8 @@ It may be useful to cross-reference this with my [AIFM summary](https://www.less
 ### How could we better estimate the parameters?
 
 We can get f_2026 [uplift fraction in 2026] from
-* transcripts of realistic cursor usage + success judge + difficulty judge calibrated on tasks of known lengths
-* uplift study
+* transcripts of realistic coding agent usage + success judge + difficulty judge calibrated on tasks of known lengths
+* uplift RCTs
 * asking lab employees about their current uplift (since parallel uplift and 1/(1-f) are equivalent in the simple model)
 
 v [velocity of automation as capabilities improve] can be obtained by
@@ -162,4 +171,4 @@ In the AIFM, the median estimate for substitutability between labor and compute 
 
 ### Why is there no substitutability between tasks?
 
-The AIFM's median was something like $\rho = -2.0$, meaning strong complementarity. So to be conservative, I assumed no substitution effect.
+The AIFM's median was something like $\rho = -2.0$, meaning very weak substitution effects. To be conservative, I assumed no substitution effect.
