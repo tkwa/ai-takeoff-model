@@ -13,7 +13,7 @@ At current rates of compute growth and algorithmic progress, this model's median
 
 ## Scope and limitations
 
-First, this model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about *timelines* (time to Automated Coder or Superhuman AI Researcher), not *takeoff* (the subsequent time from SAR to ASI and beyond). The AIFM can model takeoff because it has a second phase where the SAR's superhuman research taste further AI R&D acceleration on top of coding automation. If superhuman research taste makes AI development orders of magnitude more efficient, takeoff could be faster than this model predicts.
+First, this model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about *timelines* (time to Automated Coder or Superhuman AI Researcher), not *takeoff* (the subsequent time from SAR to ASI and beyond). The AIFM can model takeoff because it has a second phase where the SAR's superhuman research taste causes further AI R&D acceleration on top of coding automation. If superhuman research taste makes AI development orders of magnitude more efficient, takeoff could be faster than this model predicts.
 
 Second, we deliberately make three conservative assumptions:
 - No superexponential time horizon growth: we instead assume that compute efficiency increases 5x/year
@@ -59,7 +59,7 @@ This implies the following model:
 
 $$S'(t) = R(t) S^{1 - \beta} = \left(\frac L {1-f}\right)^\alpha C^\zeta S^{1 - \beta}$$
 
-$$f(t) = \sigma(v(\log C(t)S(t) - \log E_{hac}))$$
+$$f(t) = \sigma(v(\log (C(t)S(t)) - \log E_{hac}))$$
 
 where
 
@@ -82,10 +82,10 @@ None of the components of this model are novel to the AI forecasting literature,
 
 The parameters are derived from these assumptions, which are basically educated guesses from other AI timelines models and asking around:
 
-- The rate of change of S in jan 2026 is 5x/year
+- The rate of change of S in Jan 2026 is 5x/year
 - 1/v is between 1.5 and 4.2
     - NB David Rein thinks 2.1 to 4.2
-- f was between 0.25-0.5 in jan 2026, implying between 1.33x and 2x uplift
+- f was between 0.25-0.5 in Jan 2026, implying between 1.33x and 2x uplift
 - $\alpha/(\alpha + \zeta)$ is between 0.12 and 0.35
 - $\alpha + \zeta$ is between 0.8 and 1
 - $\beta$ is 0.3 to 1
@@ -127,7 +127,7 @@ All graphs display 40 trajectories with parameters sampled according to the sect
 
 From playing around with this and other variations to the AI Futures model I think any reasonable timelines model will predict superhuman AI researchers before 2036 unless AI progress hits a wall or is deliberately slowed. 
 - By progress hitting a wall, I mean something like compute and human labor growth slowing down in ~2030, no architectural breakthroughs, and AI labs not finding anything new to usefully spend resources on to improve performance. We have scaled pretraining, RLHF, RL for agency, and inference, and even one or two more dimensions could keep progress going.
-- In the sensitivity analysis, automation slowness doesn't push timelines into 2036 unless it's greater than 3.6 (37x efficiency gain required to increase automation from 50% to 73%). As for diminishing returns (beta), we get produces 2034 timelines even if you assume it's 0.9. So we would need *both* high automation slowness and high beta to get timelines after 2036.
+- In the sensitivity analysis, automation slowness doesn't push timelines into 2036 unless it's greater than 3.6 (37x efficiency gain required to increase automation from 50% to 73%). As for diminishing returns (beta), we get 2034 timelines even if you assume it's 0.9. So we would need *both* high automation slowness and high beta to get timelines after 2036.
 
 In addition to refining the parameter values [with empirical data](#how-could-we-better-estimate-the-parameters), I would ideally want to backtest this model on data before 2026. However, a backtest is likely not feasible because automation was minimal before 2025, and automation of AI R&D is the main effect being modeled here.
 
