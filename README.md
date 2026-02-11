@@ -15,7 +15,9 @@ At current rates of compute growth and algorithmic progress, this model's median
 
 First, this model doesn't treat research taste and software engineering as separate skills/tasks. As such, I see it as making predictions about *timelines* (time to Automated Coder or Superhuman AI Researcher), not *takeoff* (the subsequent time from SAR to ASI and beyond). The AIFM can model takeoff because it has a second phase where the SAR's superhuman research taste causes further AI R&D acceleration on top of coding automation. If superhuman research taste makes AI development orders of magnitude more efficient, takeoff could be faster than this model predicts.
 
-Second, we deliberately make three conservative assumptions:
+Second, this model, like AIFM, doesn't track effects on the broader economy that feed back into AI progress the way Epoch's [GATE model](https://epoch.ai/gate) does.
+
+Third, we deliberately make three conservative assumptions:
 - No superexponential time horizon growth: we instead assume that compute efficiency increases 5x/year
 - No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic curve that saturates *above* 100% (by default 105%), meaning that there is a capability level where they automate all coding.
 - No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks)
@@ -119,6 +121,7 @@ All graphs display 40 trajectories with parameters sampled according to the sect
 - At current rates of compute growth and algorithmic progress, there will be >99% automation of AI R&D, 1e3 to 1e8 software efficiency gain, and 300x-3000x research output by 2035, even without full automation or automated research taste. This is clearly transformative AI
   - The median date of 99% automation is mid-2032. However, I don't put too much weight on the exact predicted timelines because I haven't thought much about the exact parameter values.
 - A basic sensitivity analysis shows that higher beta (diminishing returns) and lower v (automation velocity) make 99% automation happen later, and the other parameters don't affect things much.
+    - One might expect the "labor share" $\alpha / (\alpha + \zeta)$ to have a large effect on timelines. The reason it doesn't affect timelines much is that *both* labor (through automation) and compute (through exogenous compute growth) are scaling quickly and contribute to AI progress.
 - The parallel compute:labor ratio, measuring the amount of compute per AI or human coder, decreases in the average trajectory and is ~flat in long-timelines trajectories. So in 2030 timelines, the pool of human and AI coders has much less compute than today, while in 2035 timelines, they have about the same amount.
 - The *serial* compute:labor ratio goes UP, meaning that compute growth has a larger impact on research output than labor growth. This is because compute is increasing so fast and the parallel labor added by automation doesn't effectively translate into serial labor.
 
