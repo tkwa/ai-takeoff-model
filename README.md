@@ -17,8 +17,7 @@ First, this model doesn't treat research taste and software engineering as separ
 
 Second, this model, like AIFM, doesn't track effects on the broader economy that feed back into AI progress the way Epoch's [GATE model](https://epoch.ai/gate) does.
 
-Third, we deliberately make three conservative assumptions:
-- No superexponential time horizon growth: we instead assume that compute efficiency increases 5x/year
+Third, we deliberately make two conservative assumptions:
 - No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic curve that saturates *above* 100% (by default 105%), meaning that there is a capability level where they automate all coding.
 - No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks)
 
@@ -50,7 +49,7 @@ We assume that AI development has the following dynamics:
 
 - Research progress is [Cobb-Douglas](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function) between labor and compute
 - Software efficiency S follows a [Jones model](https://en.wikipedia.org/wiki/Jones_model)
-- The key metric we want to predict, **fraction of automatable tasks $f$**, increases as a sigmoid in log S
+- The key metric we want to predict, **fraction of automatable tasks $f$**, increases as a sigmoid in log(effective compute)
 - Zero substitution between tasks
 - Labor
     - Humans work on ONLY non-automated tasks
@@ -74,7 +73,7 @@ where
 - $\alpha, \beta, \zeta$ are constant
     - $\alpha$ is diminishing returns to more labor.
     - $\beta$ is the difficulty exponent for software improvement
-    - $\zeta$ is direct returns to compute. For software intelligence explosion, this is not relevant
+    - $\zeta$ is direct returns to compute. This is not relevant for a software intelligence explosion, but it's highly relevant when looking at how much capabilities will improve given future compute investment.
 - $E_{hac}$ is the effective compute level of an AI that can automate half of AI R&D tasks.
 - $v$ is the automation velocity: S must increase by factor of $e^{1/v}$ to get from 50% to 73% automation. This is essentially how easy it is to translate capability gains into more automation. 
 
@@ -87,7 +86,7 @@ The parameters are derived from these assumptions, which are basically educated 
 - The rate of change of S in Jan 2026 is 5x/year
 - 1/v is between 1.5 and 4.2
     - NB David Rein thinks 2.1 to 4.2
-- f was between 0.25-0.5 in Jan 2026, implying between 1.33x and 2x uplift
+- f was between 0.25-0.5 in Jan 2026, implying between 1.33x and 2x uplift. This informs the value of $E_{hac}$.
 - $\alpha/(\alpha + \zeta)$ is between 0.12 and 0.35
 - $\alpha + \zeta$ is between 0.8 and 1
 - $\beta$ is 0.3 to 1
@@ -143,10 +142,9 @@ It may be useful to cross-reference this with my [AIFM summary](https://www.less
 - No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks). AIFM assumes a small degree of sbustitutability ($\rho_c = -2).
 - Automated tasks don't bottleneck: Once a task can be automated, we assume it's much faster than humans and is never the bottleneck-- either because AIs will run much faster than humans in series or somewhat faster in parallel. AIFM assumes automated tasks initially run somewhat faster than human coding and speed up over time.
 - No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic that saturates *above* 100% (by default 105%, a number which seems somewhat arbitrary), meaning that there is a capability level where they automate all coding.
-- Labor and compute are Cobb-Douglas. Unlike other differences, this one pushes in the direction of shorter timelines.  In the AIFM, they are CES and slight complements, so that infinite compute doesn't produce infinite progress. See below for more thoughts.
-- No use of time horizon: Software efficiency is a direct input to our model rather than being estimated using time horizon. See "[Why make this](#why-make-this)" for why.
-- No superexponential capability growth: To be conservative, we model automation fraction as strictly logistic in log compute. Together with the lack of research taste model, this makes superexponential growth impossible without superexponential growth in inputs (so we don't attempt to model whether there will be a taste-only singularity). AIFM assumes that time horizon, and therefore software efficiency, can increase superexponentially until reaching the Automated Coder level.
-- No research taste: We don't model research taste separately; I think of early research taste as continuous with the planning involved in coding, and ignore late research taste. AIFM has a rich model of research taste that needs another 6 or so parameters and informs the second phase of takeoff, from Automated Coder to ASI and then to the ultimate physical limits of intelligence.
+- Labor and compute are Cobb-Douglas. Unlike other differences, this one pushes in the direction of shorter timelines.  In the AIFM, they are CES and slight complements, so that infinite labor doesn't produce infinite progress. See below for more thoughts.
+- No use of time horizon: Software efficiency is a direct input to our model rather than being estimated using time horizon. We model automation fraction as strictly logistic in log effective compute, related via rough uplift estimates that we hope to refine in the future. See "[Why make this](#why-make-this)" for why. AIFM estimates the required effective compute for an Automated Coder using a time horizon threshold.
+- No research taste: We don't model research taste separately; I think of early research taste as continuous with the planning involved in coding, and ignore late research taste. Given the lack of research taste model and certain parameter choices, capability growth happens to be subexponential (so I don't attempt to model whether there will be a taste-only singularity). AIFM has a rich model of research taste that needs another 6 or so parameters and informs the second phase of takeoff, from Automated Coder to ASI and then to the ultimate physical limits of intelligence.
 
 ### How could we better estimate the parameters?
 
@@ -168,10 +166,12 @@ v [velocity of automation as capabilities improve] can be obtained by
 
 ### Why are labor and compute Cobb-Douglas?
 
-In the AIFM, the median estimate for substitutability between labor and compute is -0.15, and the plausible range includes zero (which would be Cobb-Douglas). I asked Eli why they didn't just say it was Cobb-Douglas, and he said something like Cobb-Douglas giving infinite progress if compute goes to infinity while labor remains constant, which is implausible. I have two responses to this:
-- It doesn't seem so implausible to me-- it would take days to weeks to get to ASI given infinite compute, meaning a 100x-1000x speedup, but once there, infinite compute might allow developers to develop algorithms in months that would take humans billions of years with current compute levels
+In the AIFM, the median estimate for substitutability between labor and compute is -0.15, and the plausible range includes zero (which would be Cobb-Douglas). I asked Eli why they didn't just say it was Cobb-Douglas, and he said something like Cobb-Douglas giving infinite progress if one of labor/compute goes to infinity while the other remains constant, which is implausible. I have two responses to this:
+- It doesn't seem so implausible to me-- for infinite compute, it would take days to weeks to get to ASI given infinite compute, meaning a 100x-1000x speedup, but once there, infinite compute might allow developers to develop algorithms in months that would take humans billions of years with current compute levels. As for infinite labor, a literally infinite pool of labor could just do training runs by manual calculation and write down the optimal AI weights without using any experiment compute.
 - Effective labor/compute ratio only changes by 10-100x during the period in question, so it doesn't affect results much anyway. The fastest trajectories are most affected by compute:labor ratio, but for trajectories that get to 99% automation around 2034, the ratio stays around 1:1.
 
 ### Why is there no substitutability between tasks?
 
 The AIFM's median was something like $\rho = -2.0$, meaning very weak substitution effects. To be conservative, I assumed no substitution effect.
+
+(edit 2/11: revised some language on comparison to the AIFM)
