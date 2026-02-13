@@ -139,7 +139,7 @@ In addition to refining the parameter values [with empirical data](#how-could-we
 
 It may be useful to cross-reference this with my [AIFM summary](https://www.lesswrong.com/posts/YABG5JmztGGPwNFq2/ai-futures-timelines-and-takeoff-model-dec-2025-update?commentId=xA3x6HqndYpNHdmcN)
 
-- No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks). AIFM assumes a small degree of sbustitutability ($\rho_c = -2).
+- No substitutability: Automation follows Amdahl's law (speedup = $1/(1-f)$ when automated tasks are much faster than manual tasks). AIFM assumes a small degree of substitutability ($\rho_c = -2).
 - Automated tasks don't bottleneck: Once a task can be automated, we assume it's much faster than humans and is never the bottleneck-- either because AIs will run much faster than humans in series or somewhat faster in parallel. AIFM assumes automated tasks initially run somewhat faster than human coding and speed up over time.
 - No full automation: as AIs get more capable, they never automate 100% of AI R&D work, just approach it. In the AIFM, automation of coding follows a logistic that saturates *above* 100% (by default 105%, a number which seems somewhat arbitrary), meaning that there is a capability level where they automate all coding.
 - Labor and compute are Cobb-Douglas. Unlike other differences, this one pushes in the direction of shorter timelines.  In the AIFM, they are CES and slight complements, so that infinite labor doesn't produce infinite progress. See below for more thoughts.
